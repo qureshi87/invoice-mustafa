@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Maker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Mobile Invoice App</p>
+        <h1>Invoice Creator</h1>
+      </div>
+      <button id="print-invoice" class="ghost-btn" onclick="window.print()">Print / PDF</button>
+    </header>
+
+    <main class="app-layout">
+      <section class="card form-card">
+        <h2>Invoice Details</h2>
+
+        <div class="form-grid">
+          <label>
+            Your business name
+            <input id="business-name" type="text" value="Mustafa Studio" />
+          </label>
+          <label>
+            Invoice number
+            <input id="invoice-number" type="text" value="INV-1001" />
+          </label>
+          <label>
+            Issue date
+            <input id="issue-date" type="date" />
+          </label>
+          <label>
+            Due date
+            <input id="due-date" type="date" />
+          </label>
+          <label class="full-span">
+            Client name
+            <input id="client-name" type="text" value="John Doe" />
+          </label>
+          <label class="full-span">
+            Client email
+            <input id="client-email" type="email" value="john@email.com" />
+          </label>
+          <label class="full-span">
+            Client address
+            <textarea id="client-address" rows="2">123 Main Street, City</textarea>
+          </label>
+        </div>
+
+        <div class="items-header">
+          <h3>Items</h3>
+          <button id="add-item" class="primary-btn">+ Add item</button>
+        </div>
+
+        <div id="items-container" class="items-container"></div>
+
+        <!-- Custom / Dynamic Tax Input -->
+        <div class="tax-control-grid" style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+          <label class="checkbox-label" style="flex-direction: row; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="enable-tax" checked /> Enable Tax
+          </label>
+          <label style="flex-direction: row; align-items: center; gap: 0.5rem; font-size: 0.85rem;">
+            Tax Rate (%):
+            <input id="tax-rate" type="number" min="0" max="100" value="5" style="width: 80px;" />
+          </label>
+        </div>
+
+        <div class="totals-box">
+          <div class="total-row">
+            <span>Subtotal</span>
+            <strong id="subtotal-value">Rs. 0.00</strong>
+          </div>
+          <div class="total-row" id="tax-row">
+            <span id="tax-label">Tax (5%)</span>
+            <strong id="tax-value">Rs. 0.00</strong>
+          </div>
+          <div class="total-row grand-total">
+            <span>Total</span>
+            <strong id="total-value">Rs. 0.00</strong>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="save-draft" class="secondary-btn">Save draft</button>
+          <button id="reset-form" class="danger-btn">Reset</button>
+        </div>
+      </section>
+
+      <!-- Preview Card -->
+      <section class="card preview-card">
+        <div class="invoice-preview" id="invoice-preview"></div>
+      </section>
+    </main>
+
+    <!-- History Card -->
+    <section class="card history-card">
+      <h2>Invoice History</h2>
+      <div class="table-responsive">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Client Name</th>
+              <th>Date</th>
+              <th>Total Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
